@@ -1,0 +1,13 @@
+numpy
+pandas
+matplotlib
+seaborn
+scikit-learn
+scikit-image
+opencv-python
+Pillow
+kaggle
+jupyter
+# para la entrega final (modelos):
+tensorflow-macos; platform_system == "Darwin" and platform_machine == "arm64"
+tensorflow; platform_system != "Darwin" or platform_machine != "arm64"

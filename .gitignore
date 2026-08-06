@@ -1,0 +1,6 @@
+data/
+*.zip
+nombre_entorno2/
+.ipynb_checkpoints/
+__pycache__/
+.DS_Store
