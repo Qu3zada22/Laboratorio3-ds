@@ -3,7 +3,7 @@ name = "laboratorio3-ds"
 version = "0.1.0"
 description = "Add your description here"
 readme = "README.md"
-requires-python = ">=3.14"
+requires-python = ">=3.12"
 dependencies = [
     "ipykernel>=7.3.0",
     "jupyter>=1.1.1",
@@ -17,4 +17,5 @@ dependencies = [
     "scikit-image>=0.26.0",
     "scikit-learn>=1.9.0",
     "seaborn>=0.13.2",
+    "tensorflow>=2.21.0 ; platform_machine != 'arm64' or sys_platform != 'darwin'",
 ]
