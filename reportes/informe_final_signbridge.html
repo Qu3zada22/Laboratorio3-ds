@@ -1,0 +1,400 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Informe final SignBridge ASL - CC3084 Laboratorio 3</title>
+  <meta name="author" content="Anggie Quezada, Jonathan Díaz e Iris Ayala">
+  <style>
+    @page {
+      size: A4;
+      margin: 20mm 19mm 20mm;
+      @top-left {
+        content: "Universidad del Valle de Guatemala";
+        color: #3d4650;
+        font-family: "Noto Sans", "Liberation Sans", sans-serif;
+        font-size: 7.2pt;
+        letter-spacing: .08em;
+      }
+      @top-right {
+        content: "CC3084 · Laboratorio 3";
+        color: #3d4650;
+        font-family: "Noto Sans", "Liberation Sans", sans-serif;
+        font-size: 7.2pt;
+      }
+      @bottom-center {
+        content: counter(page);
+        color: #3d4650;
+        font-family: "Noto Serif", "Liberation Serif", serif;
+        font-size: 8.5pt;
+      }
+    }
+    @page cover {
+      margin: 0;
+      @top-left { content: none; }
+      @top-right { content: none; }
+      @bottom-center { content: none; }
+    }
+    * { box-sizing: border-box; }
+    html {
+      font-family: "Noto Serif", "Liberation Serif", "Nimbus Roman", serif;
+      color: #17191c;
+      font-size: 9.6pt;
+      line-height: 1.48;
+      orphans: 3;
+      widows: 3;
+      hyphens: auto;
+    }
+    body { margin: 0; }
+    h1, h2, h3 {
+      color: #152b45;
+      font-weight: 700;
+      line-height: 1.2;
+      break-after: avoid;
+      orphans: 3;
+    }
+    h1 { font-size: 18pt; margin: 0 0 6mm; text-align: center; }
+    h2 { font-size: 13.5pt; border-bottom: .55pt solid #66717d; padding-bottom: 1.2mm; margin: 7mm 0 3.2mm; }
+    h3 { font-size: 10.8pt; margin: 5mm 0 1.6mm; }
+    h3 + p { break-after: avoid; }
+    p { margin: 0 0 2.8mm; text-align: justify; }
+    a { color: #263f5d; text-decoration: underline; text-decoration-thickness: .45pt; overflow-wrap: anywhere; }
+    strong { color: inherit; }
+    .cover {
+      page: cover;
+      height: 297mm;
+      padding: 27mm 27mm 24mm;
+      background: #ffffff;
+      color: #17191c;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+    }
+    .cover .institution {
+      font-family: "Noto Sans", "Liberation Sans", sans-serif;
+      font-size: 9.2pt;
+      line-height: 1.75;
+      letter-spacing: .06em;
+      text-transform: uppercase;
+    }
+    .cover .rule { width: 62mm; border-top: .7pt solid #152b45; margin: 16mm auto 0; }
+    .cover h1 { color: #152b45; font-size: 28pt; font-weight: 700; margin: 37mm 0 5mm; }
+    .cover .subtitle { font-size: 15pt; color: #292d32; margin-bottom: 13mm; }
+    .cover .descriptor { max-width: 136mm; font-size: 10.5pt; line-height: 1.55; text-align: center; }
+    .cover .meta { margin-top: auto; font-size: 9.6pt; line-height: 1.65; }
+    .cover .meta strong {
+      font-family: "Noto Sans", "Liberation Sans", sans-serif;
+      font-size: 8pt;
+      font-weight: 600;
+      letter-spacing: .05em;
+      text-transform: uppercase;
+    }
+    .cover a { color: #263f5d; }
+    .page-break { break-before: page; }
+    .lead { font-size: 10.3pt; line-height: 1.5; color: #24282d; }
+    .callout {
+      border-top: .55pt solid #6f7780;
+      border-bottom: .55pt solid #6f7780;
+      padding: 2.5mm 4mm;
+      margin: 4mm 5mm;
+      font-size: 9pt;
+      break-inside: avoid;
+    }
+    .callout strong { font-weight: 400; font-style: italic; }
+    .metric-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 0;
+      border-top: 1.1pt solid #20252a;
+      border-bottom: 1.1pt solid #20252a;
+      margin: 4mm 0 5mm;
+      break-inside: avoid;
+    }
+    .metric { padding: 2.7mm 4mm; text-align: center; break-inside: avoid; }
+    .metric + .metric { border-left: .45pt solid #a4a9ae; }
+    .metric .value { display: block; font-size: 12pt; font-weight: 700; color: #152b45; font-variant-numeric: tabular-nums; }
+    .metric .label { display: block; color: #3e444a; font-size: 7.8pt; line-height: 1.3; margin-top: .8mm; }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      border-top: 1.15pt solid #20252a;
+      border-bottom: 1.15pt solid #20252a;
+      margin: 3mm 0 5mm;
+      font-size: 8.55pt;
+      line-height: 1.35;
+      break-inside: avoid;
+    }
+    thead { display: table-header-group; }
+    th { color: #17191c; font-weight: 700; text-align: left; border-bottom: .7pt solid #4b5259; }
+    th, td { padding: 1.8mm 2mm; border: 0; vertical-align: top; }
+    tbody tr + tr td { border-top: .3pt solid #c3c6c9; }
+    .num { text-align: right; font-variant-numeric: tabular-nums; white-space: nowrap; }
+    figure { margin: 4.5mm auto 5.5mm; text-align: center; break-inside: avoid; }
+    figure img { display: block; margin: 0 auto; max-width: 100%; max-height: 122mm; object-fit: contain; }
+    figure.tall img { max-height: 157mm; }
+    figure.wide img { max-height: 92mm; }
+    figcaption { margin: 1.7mm auto 0; max-width: 96%; color: #292d32; font-size: 8.2pt; line-height: 1.38; text-align: justify; }
+    figcaption strong { color: #17191c; font-weight: 700; }
+    ul, ol { margin: 2mm 0 4mm 5mm; padding-left: 5mm; }
+    li { margin-bottom: 1.3mm; text-align: justify; }
+    .toc { columns: 2; column-gap: 12mm; font-size: 8.8pt; }
+    .toc li { break-inside: avoid; text-align: left; }
+    .small { font-size: 8pt; color: #454b51; }
+    .source-note {
+      border-left: 1.5pt solid #596674;
+      padding: 2mm 3.5mm;
+      margin: 3mm 0;
+      font-size: 8pt;
+      color: #3e444a;
+      break-inside: avoid;
+    }
+  </style>
+</head>
+<body>
+  <section class="cover">
+    <div class="institution">
+      Universidad del Valle de Guatemala<br>
+      Facultad de Ingeniería<br>
+      Departamento de Ciencias de la Computación<br>
+      CC3084 Data Science · Semestre II 2026
+    </div>
+    <div class="rule"></div>
+    <h1>SignBridge ASL</h1>
+    <div class="subtitle">Prototipo de reconocimiento del alfabeto de señas</div>
+    <p class="descriptor">Informe final del Laboratorio 3: análisis exploratorio, preprocesamiento, comparación de modelos, evaluación fuera del conjunto de datos y reflexión de accesibilidad.</p>
+    <div class="meta">
+      <strong>Integrantes</strong><br>
+      Anggie Quezada · Jonathan Díaz · Iris Ayala<br><br>
+      <strong>Repositorio</strong><br>
+      <a href="https://github.com/Qu3zada22/Laboratorio3-ds">https://github.com/Qu3zada22/Laboratorio3-ds</a><br><br>
+      Guatemala, agosto de 2026
+    </div>
+  </section>
+
+  <main>
+    <section class="page-break">
+      <h1>Resumen ejecutivo</h1>
+      <p class="lead">Se desarrolló y evaluó un prototipo de clasificación de imágenes estáticas para las 29 clases del conjunto ASL Alphabet: las letras A–Z y las categorías <em>del</em>, <em>nothing</em> y <em>space</em>. El objetivo académico fue recorrer un flujo reproducible de ciencia de datos y contrastar el desempeño interno con condiciones de captura más cercanas a un producto.</p>
+      <div class="metric-grid">
+        <div class="metric"><span class="value">0.986590</span><span class="label">Accuracy final de CNN 2 en test reservado</span></div>
+        <div class="metric"><span class="value">0.133333</span><span class="label">Accuracy en 15 fotografías propias</span></div>
+        <div class="metric"><span class="value">0.853257</span><span class="label">Brecha entre test y fotografías propias</span></div>
+      </div>
+      <p>La mejor alternativa fue la CNN 2 base, seleccionada exclusivamente por su accuracy de validación de 0.986973. En el test reservado obtuvo pérdida 0.059055 y accuracy 0.986590. Sin embargo, solo acertó 2 de 15 fotografías propias. Esta diferencia revela un cambio de dominio importante: el alto desempeño dentro del conjunto no demuestra por sí solo robustez ante otros fondos, cámaras, encuadres, iluminaciones o escalas de mano.</p>
+      <div class="callout"><strong>Lectura de producto.</strong> El prototipo demuestra viabilidad para un entorno controlado, pero no está listo para uso real. SignBridge necesitaría datos más diversos, separación por persona o sesión, evaluación por subgrupos, calibración de confianza y una experiencia que permita abstención y corrección.</div>
+
+      <h2>Contenido y trazabilidad</h2>
+      <ol class="toc">
+        <li>Contexto del producto y alcance</li>
+        <li>Conjunto de datos y EDA</li>
+        <li>Construcción de conjuntos y preprocesamiento</li>
+        <li>Modelos y resultados medidos</li>
+        <li>Aumento de datos</li>
+        <li>Evaluación con fotografías propias</li>
+        <li>Accesibilidad, sesgo y uso responsable</li>
+        <li>Limitaciones</li>
+        <li>Conclusiones y recomendaciones</li>
+      </ol>
+      <p class="source-note"><strong>Fuente de evidencia.</strong> Todas las cifras y figuras provienen de los resultados almacenados en el notebook ejecutado <span>notebooks/01_eda_preprocessing.ipynb</span>. No se reentrenaron modelos para elaborar este informe.</p>
+    </section>
+
+    <section>
+      <h2>1. Contexto del producto y alcance</h2>
+      <p>SignBridge se plantea como un apoyo para reducir barreras de comunicación mediante reconocimiento visual. En este laboratorio, su alcance se limita a clasificar una imagen estática y centrada en una de 29 categorías. No constituye traducción de ASL: una lengua de señas incorpora movimiento, expresiones faciales, gramática, espacio y contexto.</p>
+      <p>El trabajo cubre indexación de imágenes, análisis exploratorio, partición estratificada, preprocesamiento, dos arquitecturas CNN, tres redes densas, tres configuraciones de Random Forest, aumento de datos y una evaluación externa pequeña con fotografías propias. La selección de modelos usa validación; el test se reserva para una única evaluación final.</p>
+
+      <h2>2. Conjunto de datos y análisis exploratorio</h2>
+      <h3>2.1 Composición y estrategia de muestra</h3>
+      <p>El conjunto contiene <strong>87,000 imágenes JPEG RGB de 200 × 200 píxeles</strong>, distribuidas en 29 clases balanceadas con aproximadamente 3,000 imágenes por clase. Para inspeccionar variabilidad sin cargar todo el conjunto en memoria, se construyó primero un índice de rutas y etiquetas. Las visualizaciones usan muestras representativas y reproducibles, mientras el entrenamiento emplea 600 imágenes por clase.</p>
+      <figure class="tall">
+        <img src="assets/01_muestras_asl.png" alt="Muestras de las clases A, B, C, L y Y con cuatro imágenes por clase">
+        <figcaption><strong>Figura 1. Muestras representativas de ASL.</strong> Las clases A, B, C, L y Y muestran variación de ángulo, iluminación, fondo, encuadre y apariencia de la mano, aunque mantienen la configuración distintiva de cada seña.</figcaption>
+      </figure>
+
+      <figure class="wide">
+        <img src="assets/02_distribucion_clases.png" alt="Gráfica de barras con 3000 imágenes para cada una de las 29 clases">
+        <figcaption><strong>Figura 2. Distribución por clase.</strong> La igualdad de frecuencias evita recurrir a sobremuestreo o pesos de clase; también hace que accuracy sea una medida interna interpretable, aunque no cubre equidad entre condiciones o personas.</figcaption>
+      </figure>
+
+      <h3>2.2 Variabilidad y grupos visualmente similares</h3>
+      <p>La dificultad no depende únicamente del balance. Varias señas se distinguen por detalles finos: posición del pulgar, separación o cruce de dedos y orientación de la muñeca. Se identificaron los grupos M–N–S, U–V–R, K–V–P, G–H y A–T–S como candidatos razonables a confusión visual.</p>
+      <figure class="tall">
+        <img src="assets/03_grupos_confundibles.png" alt="Muestras comparativas de cinco grupos de letras visualmente similares">
+        <figcaption><strong>Figura 3. Grupos visualmente confundibles.</strong> La comparación confirma que pequeñas diferencias locales separan clases. Esto favorece modelos convolucionales capaces de aprender patrones espaciales y exige capturas donde dedos y orientación sean legibles.</figcaption>
+      </figure>
+
+      <h3>2.3 Brillo como variable de captura</h3>
+      <figure class="wide">
+        <img src="assets/04_brillo_clases.png" alt="Diagramas de caja del brillo promedio por clase">
+        <figcaption><strong>Figura 4. Brillo promedio por clase.</strong> Las distribuciones se superponen ampliamente, por lo que el brillo no separa de forma general las señas. La clase <em>nothing</em> presenta un centro más alto y existen rangos internos amplios; la iluminación puede actuar como señal secundaria del conjunto.</figcaption>
+      </figure>
+    </section>
+
+    <section class="page-break">
+      <h2>3. Construcción de conjuntos y preprocesamiento</h2>
+      <h3>3.1 Partición y submuestra</h3>
+      <p>El test provisto por Kaggle contiene solo una imagen por clase y no permite una estimación estable. Por ello se construyó una partición propia a partir del directorio de entrenamiento: <strong>70% entrenamiento, 15% validación y 15% prueba</strong>, manteniendo estratificación por clase. El test permaneció fuera de la selección de arquitectura e hiperparámetros.</p>
+      <p>Por costo computacional se tomó una submuestra de <strong>600 imágenes por clase</strong>, aproximadamente 17,400 imágenes, preservando las proporciones del split estratificado. Esta decisión reduce cerca de cinco veces el volumen frente al conjunto completo y permite comparar varias familias de modelos bajo el mismo protocolo.</p>
+
+      <h3>3.2 Transformación de entrada</h3>
+      <table>
+        <thead><tr><th>Etapa</th><th>Decisión</th><th>Justificación</th></tr></thead>
+        <tbody>
+          <tr><td>Resolución</td><td>64 × 64, RGB</td><td>Reduce memoria y tiempo, conservando estructura espacial suficiente para el prototipo.</td></tr>
+          <tr><td>Escala</td><td>Normalización de píxeles a [0, 1]</td><td>Estabiliza la optimización de redes neuronales.</td></tr>
+          <tr><td>Etiquetas</td><td>Codificador ajustado únicamente con entrenamiento</td><td>Evita incorporar información de validación o test al preprocesamiento aprendido.</td></tr>
+          <tr><td>Procesamiento adicional</td><td>Sin filtros, segmentación ni ecualización</td><td>Mantiene un flujo simple y reproducible; fondo e iluminación quedan expuestos como parte del cambio de dominio.</td></tr>
+          <tr><td>Fotografías propias</td><td>Relleno cuadrado centrado y resize a 64 × 64</td><td>Conserva la relación de aspecto y evita deformar la geometría de la mano.</td></tr>
+        </tbody>
+      </table>
+      <figure>
+        <img src="assets/05_preprocesamiento.png" alt="Comparación de una imagen original 200 por 200 y su versión preprocesada 64 por 64">
+        <figcaption><strong>Figura 5. Efecto del preprocesamiento.</strong> La reducción conserva la configuración general, pero elimina detalle fino. En fotografías rectangulares, el relleno evita estiramiento; aun así, puede introducir bordes negros y reducir la escala efectiva de la mano.</figcaption>
+      </figure>
+    </section>
+
+    <section>
+      <h2>4. Modelos y resultados medidos</h2>
+      <h3>4.1 Redes convolucionales</h3>
+      <p>La CNN 1 funciona como línea base compacta. La CNN 2 incrementa profundidad y filtros, amplía la capacidad densa e incorpora dropout. Ambas se entrenaron sobre la misma partición; su comparación se realizó con accuracy y pérdida de validación, junto con las curvas de aprendizaje.</p>
+      <table>
+        <thead><tr><th>Modelo</th><th>Condición</th><th class="num">Accuracy de validación</th><th>Lectura</th></tr></thead>
+        <tbody>
+          <tr><td>CNN 1</td><td>Base</td><td class="num">0.933333</td><td>Convergencia rápida y separación posterior entre pérdidas; evidencia de sobreajuste.</td></tr>
+          <tr><td>CNN 2</td><td>Base</td><td class="num"><strong>0.986973</strong></td><td>Pérdidas bajas y próximas; mejor arquitectura base.</td></tr>
+          <tr><td>CNN 1</td><td>Con aumento</td><td class="num">0.970498</td><td>Mejora sustancial frente a su línea base.</td></tr>
+          <tr><td>CNN 2</td><td>Con aumento</td><td class="num">0.980460</td><td>Resultado alto, pero inferior a CNN 2 base.</td></tr>
+        </tbody>
+      </table>
+      <figure class="wide">
+        <img src="assets/06_curvas_cnn_base.png" alt="Curvas de pérdida de entrenamiento y validación de CNN 1 y CNN 2">
+        <figcaption><strong>Figura 6. Curvas de aprendizaje de las CNN base.</strong> CNN 1 lleva la pérdida de entrenamiento casi a cero mientras validación oscila; CNN 2 mantiene trayectorias más cercanas y una pérdida de validación baja.</figcaption>
+      </figure>
+      <figure>
+        <img src="assets/07_matriz_confusion.png" alt="Matriz de confusión de CNN 2 en validación">
+        <figcaption><strong>Figura 7. Matriz de confusión de CNN 2.</strong> La concentración sobre la diagonal y los errores aislados son coherentes con 0.986973 de accuracy. La gráfica no anota conteos por celda, por lo que no se atribuyen cantidades exactas a pares específicos.</figcaption>
+      </figure>
+
+      <h3>4.2 Redes densas</h3>
+      <p>Se compararon tres configuraciones fully-connected para variar capacidad y regularización. Las variantes de 128 unidades y 256→128 con dropout se estabilizaron cerca del nivel de azar para 29 clases; solo 256→128 aprendió una separación útil, aunque muy inferior a las CNN.</p>
+      <table>
+        <thead><tr><th>Configuración</th><th class="num">Accuracy de validación</th><th>Resultado</th></tr></thead>
+        <tbody>
+          <tr><td>Densa 128</td><td class="num">0.034483</td><td>No aprendió una frontera útil.</td></tr>
+          <tr><td>Densa 256→128</td><td class="num"><strong>0.662835</strong></td><td>Mejor variante densa; pérdida de validación 1.001914.</td></tr>
+          <tr><td>Densa 256→128 + dropout 0.30</td><td class="num">0.034483</td><td>No mejoró bajo esta configuración.</td></tr>
+        </tbody>
+      </table>
+
+      <h3>4.3 Random Forest y comparación global</h3>
+      <table>
+        <thead><tr><th>Árboles</th><th class="num">Accuracy de validación</th><th>Decisión</th></tr></thead>
+        <tbody>
+          <tr><td>100</td><td class="num">0.965134</td><td>Referencia inicial.</td></tr>
+          <tr><td>300</td><td class="num"><strong>0.968966</strong></td><td>Seleccionado.</td></tr>
+          <tr><td>500</td><td class="num">0.968966</td><td>Empata con 300; no justifica mayor costo.</td></tr>
+        </tbody>
+      </table>
+      <p>En caso de empate se eligió el bosque de 300 árboles por eficiencia. La comparación entre familias ordenó CNN 2, Random Forest, CNN 1 y la red densa 256→128. Este resultado muestra el valor de preservar relaciones espaciales mediante convoluciones.</p>
+      <figure class="wide">
+        <img src="assets/08_comparacion_modelos.png" alt="Comparación de accuracy de validación entre CNN 2, Random Forest, CNN 1 y red densa">
+        <figcaption><strong>Figura 8. Comparación de modelos en validación.</strong> CNN 2 base lidera con 0.986973. Random Forest constituye una línea base competitiva, pero no supera a la arquitectura convolucional.</figcaption>
+      </figure>
+
+      <h3>4.4 Evaluación final reservada</h3>
+      <div class="metric-grid">
+        <div class="metric"><span class="value">CNN 2</span><span class="label">Modelo final: variante base</span></div>
+        <div class="metric"><span class="value">0.059055</span><span class="label">Pérdida en test</span></div>
+        <div class="metric"><span class="value">0.986590</span><span class="label">Accuracy en test</span></div>
+      </div>
+      <p>La CNN 2 base se fijó antes de consultar el test. El resultado confirma desempeño interno alto, pero debe interpretarse junto con el riesgo de fotogramas casi duplicados y la evaluación externa descrita más adelante.</p>
+    </section>
+
+    <section class="page-break">
+      <h2>5. Aumento de datos</h2>
+      <p>Se reentrenaron CNN 1 y CNN 2 con rotaciones pequeñas, zoom moderado, traslación y cambios de contraste. Estas transformaciones simulan variaciones plausibles de cámara, encuadre e iluminación sin alterar deliberadamente la configuración de la mano.</p>
+      <p>No se aplicaron reflejos horizontales ni verticales. En señas, la lateralidad, orientación de la palma, dirección y relación entre dedos son componentes semánticos; un reflejo puede generar una postura inválida o cambiar el significado. No es equivalente al caso de objetos cuya categoría permanece ante un espejo.</p>
+      <figure class="wide">
+        <img src="assets/09_comparacion_aumento.png" alt="Comparación de accuracy de validación de CNN 1 y CNN 2 con y sin aumento">
+        <figcaption><strong>Figura 9. Efecto del aumento.</strong> CNN 1 sube de 0.933333 a 0.970498, consistente con una regularización útil. CNN 2 baja ligeramente de 0.986973 a 0.980460: las variaciones añadidas no aportaron una ventaja para una arquitectura base que ya generalizaba bien en validación.</figcaption>
+      </figure>
+      <p>El efecto distinto entre arquitecturas impide afirmar que el aumento siempre mejora. En CNN 1 reduce sobreajuste y amplía invariancias útiles; en CNN 2 puede introducir una tarea más difícil o variaciones que no coinciden exactamente con validación. Por ello se conserva CNN 2 base según el criterio medido, sin usar test para resolver la selección.</p>
+
+      <h2>6. Evaluación con fotografías propias</h2>
+      <h3>6.1 Protocolo y resultados</h3>
+      <p>La prueba externa utilizó <strong>15 imágenes únicas</strong> de exactamente tres participantes, identificados únicamente mediante seudónimos. Cada persona aportó cinco señas distintas. El notebook verificó participantes, cobertura y hashes antes de predecir. Los resultados no deben usarse para comparar a las personas: la unidad de análisis es el comportamiento del sistema ante un dominio nuevo.</p>
+      <table>
+        <thead><tr><th>Participante</th><th>Señas distintas</th><th class="num">Aciertos</th><th class="num">Accuracy</th></tr></thead>
+        <tbody>
+          <tr><td>Orión</td><td>C, F, I, L, S</td><td class="num">1 / 5</td><td class="num">0.200000</td></tr>
+          <tr><td>Nébula</td><td>Q, R, U, V, X</td><td class="num">1 / 5</td><td class="num">0.200000</td></tr>
+          <tr><td>Láctea</td><td>A, B, D, F, L</td><td class="num">0 / 5</td><td class="num">0.000000</td></tr>
+          <tr><td><strong>Total</strong></td><td><strong>15 imágenes únicas</strong></td><td class="num"><strong>2 / 15</strong></td><td class="num"><strong>0.133333</strong></td></tr>
+        </tbody>
+      </table>
+      <figure class="wide">
+        <img src="assets/10_fotos_propias.png" alt="Montaje de las 15 fotografías propias con etiqueta real, predicción y confianza">
+        <figcaption><strong>Figura 10. Evaluación con fotografías propias.</strong> El montaje permite contrastar predicción, confianza, fondo, encuadre y escala. Las bandas negras proceden del relleno cuadrado que conserva la relación de aspecto.</figcaption>
+      </figure>
+
+      <h3>6.2 Patrones de error y cambio de dominio</h3>
+      <p>La diferencia entre test y fotografías propias es <strong>0.853257</strong>, equivalente a 85.3257 puntos porcentuales. Las predicciones repetidas más frecuentes fueron <em>space</em> (4), I (2), Y (2) y K (2). Además, se observaron <strong>nueve errores con confianza igual o mayor a 0.80</strong>. La repetición de pocas clases y la alta seguridad en errores sugieren sobreconfianza y dependencia de rasgos del entorno de entrenamiento.</p>
+      <p>Las fotografías propias difieren en fondo, cámara, iluminación, distancia, encuadre, orientación y escala efectiva. El padding evita deformar la mano, pero introduce bordes y puede reducir su tamaño relativo. Estos factores explican un <strong>cambio de dominio</strong>; no indican una falla de las personas participantes. El tamaño de la muestra tampoco permite estimar rendimiento poblacional.</p>
+    </section>
+
+    <section>
+      <h2>7. Accesibilidad, sesgo y uso responsable</h2>
+      <p>Un sistema accesible no puede depender de una predicción automática única. Debe comunicar incertidumbre, permitir correcciones y ofrecer alternativas cuando la cámara o el modelo no sean confiables. También debe evitar presentar clasificación de letras aisladas como traducción completa de ASL.</p>
+      <table>
+        <thead><tr><th>Riesgo</th><th>Medición recomendada</th><th>Acción concreta</th></tr></thead>
+        <tbody>
+          <tr><td>Tono de piel e iluminación</td><td>Accuracy, tasa de abstención y matriz de confusión por rangos documentados, con tamaño muestral.</td><td>Recolectar combinaciones equilibradas de tonos y luz; revisar brechas antes del despliegue.</td></tr>
+          <tr><td>Ángulo, cámara y encuadre</td><td>Métricas por dispositivo, distancia, orientación y condición de fondo.</td><td>Separar evaluación por sesión y dispositivo; incluir guías de encuadre no restrictivas.</td></tr>
+          <tr><td>Tamaño y proporciones de mano</td><td>Errores por subgrupo, sin usar rasgos como identificadores.</td><td>Ampliar participación y verificar que el preprocesamiento no reduzca desproporcionadamente ciertas manos.</td></tr>
+          <tr><td>Sobreconfianza</td><td>Calibración, precisión por nivel de confianza y errores de alta confianza.</td><td>Permitir abstención bajo umbral calibrado y mostrar una vía clara para corregir la salida.</td></tr>
+          <tr><td>Falta de legitimidad de uso</td><td>Pruebas de usabilidad y aceptación cualitativa.</td><td>Diseñar y evaluar con participación remunerada de personas de la comunidad sorda y usuarias de ASL.</td></tr>
+        </tbody>
+      </table>
+      <p>La recolección debe contar con consentimiento informado, finalidad limitada, control de acceso y eliminación de fotografías cuando dejen de ser necesarias. Los reportes por subgrupo deben evitar reidentificación y siempre acompañar la métrica con el tamaño de muestra. Si persisten brechas, corresponde recolectar y ajustar antes de desplegar, no trasladar la carga a quienes usan el sistema.</p>
+
+      <h2>8. Limitaciones</h2>
+      <ul>
+        <li><strong>Fotogramas casi duplicados.</strong> El conjunto parece contener secuencias de video; un split aleatorio puede ubicar cuadros muy similares en entrenamiento, validación y test, inflando el desempeño interno.</li>
+        <li><strong>Muestra externa pequeña.</strong> Quince imágenes de tres participantes revelan una brecha, pero no permiten estimar generalización ni equidad poblacional.</li>
+        <li><strong>Privacidad.</strong> Las fotografías propias son datos sensibles; permanecen fuera del repositorio y no deben emplearse para inferir identidad.</li>
+        <li><strong>Señas dinámicas.</strong> J y Z requieren movimiento en ASL; tratarlas como cuadros estáticos simplifica su significado y limita la validez lingüística.</li>
+        <li><strong>Preprocesamiento.</strong> 64 × 64 reduce detalle fino; el padding de fotos rectangulares introduce bordes ausentes del entrenamiento.</li>
+        <li><strong>Alcance de producto.</strong> No se evaluaron latencia, consumo en dispositivo, video en tiempo real, detección de mano, calibración, abstención, experiencia de usuario ni seguridad operacional.</li>
+      </ul>
+    </section>
+
+    <section class="page-break">
+      <h2>9. Conclusiones y recomendaciones</h2>
+      <ol>
+        <li><strong>La CNN 2 base es la mejor alternativa medida.</strong> Alcanzó 0.986973 en validación y, una vez seleccionada, 0.986590 de accuracy con pérdida 0.059055 en test.</li>
+        <li><strong>La arquitectura importa más que aumentar indiscriminadamente.</strong> El aumento elevó CNN 1 de 0.933333 a 0.970498, pero redujo CNN 2 de 0.986973 a 0.980460. Cada transformación debe justificarse semántica y empíricamente.</li>
+        <li><strong>El test interno sobreestima la preparación para condiciones reales.</strong> Los 2 aciertos en 15 fotografías y nueve errores de alta confianza evidencian una brecha de dominio de 0.853257.</li>
+        <li><strong>El siguiente experimento debe separar por persona o sesión.</strong> También debe eliminar casi duplicados y reservar un conjunto externo con diversidad de piel, luz, cámara, ángulo, encuadre y tamaño de mano.</li>
+        <li><strong>La experiencia debe poder abstenerse y aprender de correcciones.</strong> Antes de uso real se requiere calibrar confianza, definir umbrales, mostrar incertidumbre y permitir que la persona confirme o corrija sin fricción.</li>
+        <li><strong>La comunidad debe participar en el diseño.</strong> La ampliación hacia video, J/Z dinámicas y lenguaje continuo debe realizarse con personas usuarias de ASL, protección de privacidad y evaluación por subgrupos.</li>
+      </ol>
+      <div class="callout"><strong>Conclusión general.</strong> El laboratorio demuestra un clasificador sólido dentro de un conjunto controlado y, al mismo tiempo, muestra por qué una métrica alta no equivale a un producto accesible. La prioridad siguiente no es maximizar otro decimal del test, sino construir evidencia externa representativa y mecanismos de uso responsable.</div>
+
+      <h2>Trazabilidad con la entrega</h2>
+      <table>
+        <thead><tr><th>Evidencia solicitada</th><th>Ubicación en el informe</th></tr></thead>
+        <tbody>
+          <tr><td>EDA, muestra, balance, similitud y brillo</td><td>Sección 2; figuras 1–4</td></tr>
+          <tr><td>Split, submuestra y preprocesamiento</td><td>Sección 3; figura 5</td></tr>
+          <tr><td>CNN, red densa, Random Forest y comparación</td><td>Sección 4; figuras 6–8 y tablas de resultados</td></tr>
+          <tr><td>Aumento y discusión de reflejos</td><td>Sección 5; figura 9</td></tr>
+          <tr><td>Fotografías propias y análisis de errores</td><td>Sección 6; figura 10</td></tr>
+          <tr><td>Accesibilidad, sesgo, limitaciones y recomendaciones</td><td>Secciones 7–9</td></tr>
+        </tbody>
+      </table>
+      <p class="small">Repositorio del proyecto: <a href="https://github.com/Qu3zada22/Laboratorio3-ds">https://github.com/Qu3zada22/Laboratorio3-ds</a></p>
+    </section>
+  </main>
+</body>
+</html>

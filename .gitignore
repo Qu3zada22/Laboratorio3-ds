@@ -1,8 +1,12 @@
 data/
+data/own_photos/
+fotos/
 *.zip
 nombre_entorno2/
 .ipynb_checkpoints/
 __pycache__/
 .DS_Store
 
-`n.venv/`nvenv/
+.venv/
+.atl/
+.codegraph/
